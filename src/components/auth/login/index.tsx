@@ -1,9 +1,13 @@
+import { TextField } from '@mui/material';
+
+
 const LoginPage = () => {
   const name = 'Alex';
 
   return (
     <div>
-      <h1>This is a login page</h1>
+      <TextField label="Email" variant="outlined" placeholder='Your email'/>
+
     </div>
   )
 }
