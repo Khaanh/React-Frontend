@@ -14,7 +14,7 @@ const LoginPage = (props: any) => {
       <TextField fullWidth={true} margin='normal' label="Password" variant="outlined" placeholder='Your password' onChange={(e)=> setPassword(e.target.value)}/>
       <Button type='submit' sx={{ fontFamily: 'Popins', marginTop: 2, marginBottom: 2, width: '60%' }} variant="contained">Login</Button>
 
-      <Typography variant="body1" sx={{ fontFamily: 'Popins', }}>
+      <Typography variant="body1" sx={{fontFamily: 'Popins'}}>
         Don't have an Account? <span className='incitingText'>Registration</span>
       </Typography>
     </Fragment>

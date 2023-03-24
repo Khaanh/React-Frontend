@@ -4,6 +4,8 @@ import LoginPage from "./login";
 import RegisterPage from "./register";
 import './style.scss';
 import { Box } from '@mui/material';
+import axios from 'axios';
+import { instance } from '../utils/axios';
 
 const AuthRootComponent = () => {
   let location = useLocation();
@@ -12,7 +14,13 @@ const AuthRootComponent = () => {
 
   const handleSubmit = async (e: {preventDefault: ()=> void}) => {
     e.preventDefault();
-    console.log(email);
+    const userData = {
+      email,
+      password,
+    }
+
+    const user = await instance.post('auth/login', userData)
+    console.log(user.data);
     
   } 
 
