@@ -4,4 +4,14 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
+
+  .form {
+    width: 80%;
+
+    .incitingText {
+      color: #1900d5;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
 }
