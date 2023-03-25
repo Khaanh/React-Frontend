@@ -7,22 +7,42 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { instance } from '../utils/axios';
 
-const AuthRootComponent = () => {
-  let location = useLocation();
+const AuthRootComponent: React.FC = (): JSX.Element => {
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [username, setUsername] = useState('');
 
-  const handleSubmit = async (e: {preventDefault: ()=> void}) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const userData = {
-      email,
-      password,
+    if (location.pathname === './login') {
+      const userData = {
+        email,
+        password,
+      }
+      const user = await instance.post('auth/login', userData);
+
+    } else {
+      if (password === repeatPassword) {
+        const userData = {
+          email,
+          password,
+          repeatPassword,
+          firstName,
+          username,
+        }
+
+        const newUser = await instance.post('auth/register', userData);
+        console.log(userData);
+      } else {
+        throw new Error(`Your password doesn't match`);
+      }
+
     }
 
-    const user = await instance.post('auth/login', userData)
-    console.log(user.data);
-    
-  } 
+  }
 
   return (
     <div className="root">
@@ -38,7 +58,16 @@ const AuthRootComponent = () => {
           borderRadius={5}
           boxShadow={'5px 5px 10px #ccc'}
         >
-          {location.pathname === '/login' ? <LoginPage setEmail={setEmail} setPassword={setPassword} /> : location.pathname === '/register' ? <RegisterPage/> : null}
+          {
+            location.pathname === '/login' ? <LoginPage setEmail={setEmail} setPassword={setPassword} /> : location.pathname === '/register' ?
+              <RegisterPage
+                setEmail={setEmail}
+                setPassword={setPassword}
+                setRepeatPassword={setRepeatPassword}
+                setFirstName={setFirstName}
+                setUsername={setUsername} />
+              : null
+          }
         </Box>
       </form>
     </div>
