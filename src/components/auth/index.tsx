@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoginPage from "./login";
 import RegisterPage from "./register";
 import './style.scss';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { instance } from '../utils/axios';
+import { useAppDispatch } from "../utils/hook";
+import { login } from "../../store/slice/auth";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
-  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [username, setUsername] = useState('');
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (location.pathname === './login') {
-      const userData = {
-        email,
-        password,
+      try {
+        const userData = {
+          email,
+          password,
+        }
+        const user = await instance.post('auth/login', userData);
+        await dispatch(login(user.data));
+        navigate('/')
+      } catch (e) {
+        return e;
       }
-      const user = await instance.post('auth/login', userData);
 
     } else {
       if (password === repeatPassword) {
