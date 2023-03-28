@@ -8,6 +8,7 @@ import axios from 'axios';
 import { instance } from '../utils/axios';
 import { useAppDispatch } from "../utils/hook";
 import { login } from "../../store/slice/auth";
+import { AppErrors } from "../../common/errors";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
   const [email, setEmail] = useState('');
@@ -47,9 +48,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
         const newUser = await instance.post('auth/register', userData);
         console.log(userData);
       } else {
-        throw new Error(`Your password doesn't match`);
+        throw new Error(AppErrors.PasswordDoNotMatch);
       }
-
     }
 
   }
@@ -69,14 +69,20 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
           boxShadow={'5px 5px 10px #ccc'}
         >
           {
-            location.pathname === '/login' ? <LoginPage setEmail={setEmail} setPassword={setPassword} /> : location.pathname === '/register' ?
-              <RegisterPage
+            location.pathname === '/login' ?
+              <LoginPage
                 setEmail={setEmail}
                 setPassword={setPassword}
-                setRepeatPassword={setRepeatPassword}
-                setFirstName={setFirstName}
-                setUsername={setUsername} />
-              : null
+                navigate={navigate}
+              /> : location.pathname === '/register' ?
+                <RegisterPage
+                  setEmail={setEmail}
+                  setPassword={setPassword}
+                  setRepeatPassword={setRepeatPassword}
+                  setFirstName={setFirstName}
+                  setUsername={setUsername}
+                  navigate={navigate} />
+                : null
           }
         </Box>
       </form>

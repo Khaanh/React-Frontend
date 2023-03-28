@@ -4,7 +4,7 @@ import { IPropsLogin } from '../../../common/types/auth';
 
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-  const { setPassword, setEmail } = props;
+  const { setPassword, setEmail, navigate } = props;
 
   return (
     <Fragment>
@@ -16,7 +16,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
       <Button type='submit' sx={{ fontFamily: 'Poppins', marginTop: 2, marginBottom: 2, width: '60%' }} variant="contained">Login</Button>
 
       <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
-        Don't have an Account? <span className='incitingText'>Registration</span>
+        Don't have an Account? <span className='incitingText' onClick={() => navigate('/register')}>Registration</span>
       </Typography>
     </Fragment>
   )

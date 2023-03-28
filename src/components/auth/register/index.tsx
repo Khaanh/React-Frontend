@@ -3,7 +3,7 @@ import { TextField, Button, Typography } from '@mui/material';
 import { IPropsRegister } from '../../../common/types/auth';
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
-  const { setEmail, setPassword, setRepeatPassword, setFirstName, setUsername } = props;
+  const { setEmail, setPassword, setRepeatPassword, setFirstName, setUsername, navigate } = props;
 
   return (
     <Fragment>
@@ -18,7 +18,7 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
       <Button type='submit' sx={{ fontFamily: 'Poppins', marginTop: 2, marginBottom: 2, width: '60%' }} variant="contained">Registration</Button>
 
       <Typography variant="body1" sx={{ fontFamily: 'Poppins', }}>
-        Don't have an Account? <span className='incitingText'>Authorization</span>
+        Don't have an Account? <span className='incitingText' onClick={() => navigate('/login')}>Authorization</span>
       </Typography>
     </Fragment>
   )
